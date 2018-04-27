@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>js reference vs copy</title>
+  <!-- 数组的引用和复制 -->
+</head>
+<body>
+  <script>
+    // start with strings, numbers and boolean
+    let age = 100;
+    let age2 = age;
+    console.log(age, age2);
+    age = 200;
+    console.log(age, age2);
+
+    let name = 'luya';
+    let name2 = name;
+    console.log(name, name2);
+    name = 'luyajiang';
+    console.log(name, name2);
+
+    // let's say we have an array
+    const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
+
+    // and we have a copy of it
+    const team = players;
+
+    console.log(players, team);
+
+    // you might think we can just do something like this
+    // team[3] = 'Lux';
+
+    // however what happens when we update that array?
+    // now here is the problem!
+    // oh no - we have edited the original array too!
+    // why? Beause that is an array reference, not an array copy. They both point to the same array!
+
+    // so, how do we fixed this? we take a copy instead!
+    const team2 = players.slice();
+    team2[3] = 'Lux2';
+    console.log(players, team2);
+
+    // or created a new array and concat the old one
+    const team3 = [].concat(players);
+    team3[3] = 'Lux3';
+    console.log(players, team3);
+
+    // or use the es6 spread
+    const team4 = [...players];
+    team4[3] = 'Lux4';
+    console.log(players, team4);
+
+    // now when we update it, the original one isn't changed
+    const team5 = Array.from(players);
+    team5[3] = 'Lux5';
+    console.log(players, team5);
+
+    // with objects
+    const person = {
+      name: 'Wes Bos',
+      age: 80
+    };
+
+    // and we make a copy
+    const cap = person;
+    cap.number = 90;
+    console.log(person, cap);
+
+    // 到底要怎样才能真正得到它的复制版呢？
+    const cap2 = Object.assign({}, person, {number: 99, age: 12});
+    console.log(person, cap2);
+
+    // 我们满怀期望的希望扩展语法对它也会生效
+    const cap3 = {...person};
+    console.log(person, cap3);   
+
+    // 需要注意的是：这里的例子里面，我们用的数组和对象都只是一层嵌套，Lodash 有一个深度复制的方法，但你使用之前需要多考虑一下。
+    const wes = {
+      name: 'wes',
+      age: 100,
+      social: {
+        twitter: '@wesbos',
+        facebook: 'wesbos.developer'
+      }
+    };
+    console.log(wes);
+
+    const wes2 = Object.assign({}, wes);
+    wes2.social.twitter = '@luya';
+    console.log(wes, wes2);
+
+    const wes3 = JSON.stringify(wes);
+    console.log(wes3);
+  </script>
+</body>
+</html>
