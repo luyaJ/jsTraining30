@@ -23,6 +23,7 @@ function randomHole(holes) {
 function peep() {
   const time = randomTime(200, 1000);
   const hole = randomHole(holes);
+  // console.log(time, hole);
   hole.classList.add('up');
   setTimeout(() => {
     hole.classList.remove('up');
@@ -35,5 +36,14 @@ function startGame() {
   timeUp = false;
   score = 0;
   peep();
-  setTimeout(() => timeUp = true, 1000);
+  setTimeout(() => timeUp = true, 2000);
 }
+
+function bonk(e) {
+  if(!e.isTrusted) return; 
+  score++;
+  this.classList.remove('up');
+  scoreBoard.textContent = score;
+}
+
+moles.forEach(mole => mole.addEventListener('click', bonk));

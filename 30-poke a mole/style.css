@@ -19,6 +19,14 @@ h1 {
   line-height: 1;
 }
 
+button {
+  z-index: 99;
+  position: absolute;
+  left: 42%;
+  line-height: 20px;
+  font-size: 18px;
+}
+
 .score {
   padding: 0 3rem;
   border-radius: 1rem;
