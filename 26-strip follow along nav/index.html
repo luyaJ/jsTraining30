@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Follow Along Nav</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- <h2>cool</h2> -->
+  <nav>
+    <div class="dropdownBg">
+      <span class="arrow"></span>
+    </div>
+
+    <ul class="nav">
+      <li>
+        <a href="#">About Me</a>
+        <div class="dropdown dropdown1">
+          <div class="bio">
+            <img src="http://otnbkrzno.bkt.clouddn.com/meng.png" alt="avatar" height="100" width="100">
+            <p>I'm a student who love web development. I learn things like JavaScript, CSS and Vuejs. I'm very happy.</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <a href="#">Courses</a>
+        <ul class="dropdown dropdown2 courses">
+          <li>
+            <span>RFB</span>
+            <a href="">Rect For Benginners</a>
+          </li>
+          <li>
+            <span class="code">ES6</span>
+            <a href="https://ES6.io">ES6 For Everyone</a>
+          </li>
+          <li>
+            <span class="code">STPU</span>
+            <a href="https://SublimeTextBook.com">Sublime Text Power User</a>
+          </li>
+          <li>
+            <span class="code">WTF</span>
+            <a href="http://flexbox.io">What The Flexbox?!</a>
+          </li>
+          <li>
+            <span class="code">LRX</span>
+            <a href="http://LearnRedux.com">Learn Redux</a>
+          </li>
+          <li>
+            <span class="code">CLPU</span>
+            <a href="http://CommandLinePowerUser.com">Command Line Power User</a>
+          </li>
+          <li>
+            <span class="code">MMD</span>
+            <a href="http://MasteringMarkdown.com">Mastering Markdown</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">Other Links</a>
+        <ul class="dropdown dropdown3">
+          <li><a class="button" href="http://twitter.com/wesbos">Twiter</a></li>
+          <li><a class="button" href="http://facebook.com/wesbos.developer">Facebook</a></li>
+          <li><a class="button" href="http://wesbos.com">Blog</a></li>
+          <li><a class="button" href="http://wesbos.com/courses">Course Catalog</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+  <script src="index.js"></script>
+</body>
+</html>
