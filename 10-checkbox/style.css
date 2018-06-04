@@ -1,8 +1,8 @@
 html {
-  background: #e4cc77;
+  background: #779fe4;
 }
 
-.box {
+.checkbox {
   max-width: 500px;
   margin: 50px auto;
   background: #fff;
@@ -10,29 +10,42 @@ html {
   box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.1);
 }
 
-.item{
+.box {
   display: flex;
   align-items: center;
   border-bottom: 1px solid #f1f1f1;
 }
 
-.item:last-child{
+.box:last-child {
   border-bottom: none;
 }
 
-input[type="checkbox"]{
-  margin: 20px;
-}
-
-p{
-  margin: 0;
+.box p {
+  margin: 0;  /* 处理border-left撑不满的问题 */
   padding: 20px;
+  border-left: 1px solid #f1f1f1;
   flex: 1;
-  border-left: 1px solid #d1e2ff;
   transition: background 0.2s;
 }
 
+input[type="checkbox"] {
+  margin: 20px;
+}
+
 input:checked + p {
-  background: #f9f9f9;
   text-decoration: line-through;
+  background: #f9f9f9;
+}
+
+/* 全选 */
+.checkAllbox {
+  display: flex;
+  align-items: center;
+  background: #b5cbf0;
+  border-radius: 0 0 5px 5px;
+}
+
+.checkAllbox > input:checked + p {
+  text-decoration: none;
+  background: #b5cbf0;
 }
