@@ -1,83 +1,114 @@
-const player = document.querySelector('.player');
-const video = player.querySelector('.player_video');
-const toggleButton = player.querySelector('.toggle');
-const currentTime = player.querySelector('.current_time');
-const durationTime = player.querySelector('.duration_time');
-const skipButtons = player.querySelectorAll('[data-skip]');
+const player = document.querySelector('#video_wrapper');
+const videoPlayer = document.querySelector('#video');
+const toggleBtn = document.querySelector('.toggle');
+const duration_time = document.querySelector('.duration_time');
+const current_time = document.querySelector('.current_time');
+const skipBtns = document.querySelectorAll('[data-skip]');
 
-const volumnImg = player.querySelector('.volumn_img');
-const volumnRange = player.querySelector('.volumn_range');
+const rate_range = document.querySelector('.rate_range');
+const volumn_range = document.querySelector('.volumn_range');
+const rate_num = document.querySelector('.rate_num');
+const volumn_num = document.querySelector('.volumn_num');
+
+const progress = document.querySelector('.progress');
+const progress_fill = document.querySelector('.progress_fill');
 
 // 播放 暂停 视频
 function playVideo() {
-  // if(video.paused) {
-  //   video.play();
-  // } else {
-  //   video.pause();
-  // }
-  const methods = video.paused ? 'play' : 'pause';
-  video[methods]();
+  if (videoPlayer.paused) {
+    videoPlayer.play();
+  } else {
+    videoPlayer.pause();
+  }
 }
 
-// 播放 暂停 键
-function playbtnChange() {
-  const key = this.paused ? '▶' : '❚ ❚';
-  toggleButton.textContent = key;
+// 播放 暂停 按钮
+function playBtn() {
+  const key = videoPlayer.paused ? '▶' : '❚ ❚';
+  toggleBtn.textContent = key;
 }
 
 // 时间
 function playTime() {
-  let duration = video.duration;  // 获得的是秒
+  let duration = videoPlayer.duration; // 获得秒
   let hour = parseInt(duration / 3600);
-  let minute = parseInt(duration / 60);
+  let minu = parseInt(duration / 60);
   let seconds = parseInt(duration % 60);
-  if(hour < 10) {
-    hour = '0' + hour;    
+
+  if (hour < 10) {
+    hour = '0' + hour;
   }
-  if(minute < 10) {
-    minute = '0' + minute;
+  if (minu < 10) {
+    minu = '0' + minu;
   }
-  if(seconds < 0) {
+  if (seconds < 10) {
     seconds = '0' + seconds;
   }
-  durationTime.innerHTML = (hour > 0) ? `${hour}:${minute}:${seconds}` : `${minute}:${seconds}`;
+  duration_time.innerHTML = (hour > 0) ? `${hour}:${minu}:${seconds}` : `${minu}:${seconds}`;
 
+  // 当前运行时间
   setInterval(() => {
-    let current = video.currentTime;
-    let c_hour = parseInt(current / 3600);
-    let c_minute = parseInt(current / 60);
-    let c_seconds = parseInt(current % 60);
-    if(c_hour < 10) {
-      c_hour = '0' + c_hour;
+    let current = videoPlayer.currentTime;
+    let hour = parseInt(current / 3600);
+    let minu = parseInt(current / 60);
+    let seconds = parseInt(current % 60);
+
+    if (hour < 10) {
+      hour = '0' + hour;
     }
-    if(c_minute < 10) {
-      c_minute = '0' + c_minute;
+    if (minu < 10) {
+      minu = '0' + minu;
     }
-    if(c_seconds < 10) {
-      c_seconds = '0' + c_seconds;
+    if (seconds < 10) {
+      seconds = '0' + seconds;
     }
-    currentTime.innerHTML = (c_hour > 0) ? `${c_hour}:${c_minute}:${c_seconds}` : `${c_minute}:${c_seconds}`;
+    current_time.innerHTML = (hour > 0) ? `${hour}:${minu}:${seconds} ` : `${minu}:${seconds} `;
   }, 500);
 }
 
-// 快进 倒退
+// 快进 后退
 function skip() {
-  video.currentTime += parseFloat(this.dataset.skip);
+  videoPlayer.currentTime += parseFloat(this.dataset.skip);
 }
 
-// 声音
-function handleVolumn() {
-  console.log('1');
+// 倍速 
+function handleRateRange() {
+  videoPlayer.playbackRate = this.value;
+  rate_num.innerHTML = this.value;
 }
 
-video.addEventListener('click', playVideo);
-toggleButton.addEventListener('click', playVideo);
+// 音量
+function handleVolumnRange() {
+  videoPlayer.volumn = this.value;
+  volumn_num.innerHTML = parseInt(this.value * 100);
+}
 
-video.addEventListener('play', playbtnChange);
-video.addEventListener('play', playTime);
-video.addEventListener('pause', playbtnChange);
+// 进度条
+function handleProgress() {
+  const percent = (videoPlayer.currentTime / videoPlayer.duration) * 100;
+  progress_fill.style.flexBasis = `${percent}%`;
+}
 
-skipButtons.forEach(button => button.addEventListener('click', skip));
+// 进度条拖拉
+function scrub(e) {
+  // progress.offsetWidth 等于 640px 
+  // scrubTime 的最大时间为 duration
+  const scrubTime = (e.offsetX / progress.offsetWidth) * video.duration;
+  videoPlayer.currentTime = scrubTime;
+}
 
-const volumnhandle = volumnRange.addEventListener('change', handleVolumn);
-volumnImg.addEventListener('click', volumnhandle)
+videoPlayer.addEventListener('click', playVideo);
+videoPlayer.addEventListener('click', playBtn);
+toggleBtn.addEventListener('click', playVideo);
+toggleBtn.addEventListener('click', playBtn);
+
+videoPlayer.addEventListener('play', playTime);
+
+skipBtns.forEach(btn => btn.addEventListener('click', skip));
+rate_range.addEventListener('change', handleRateRange);
+rate_range.addEventListener('mousemove', handleRateRange);
+volumn_range.addEventListener('change', handleVolumnRange);
+volumn_range.addEventListener('mousemove', handleVolumnRange);
+
+videoPlayer.addEventListener('timeupdate', handleProgress);
+progress.addEventListener('click', scrub);

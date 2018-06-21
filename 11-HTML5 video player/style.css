@@ -1,127 +1,151 @@
-body {
+html {
   padding: 0;
+  min-height: 100vh;
+  background: linear-gradient(10deg, #FFD26F 0%, #623AA2 100%);
   display: flex;
-  background: #d659ac;
-  background: linear-gradient(135deg, #d659ac 0%, #70084d 40%, #6f76e4 100%);
-  min-height: 100vh;   /* 视窗高度 */
-  align-items: center;
   justify-content: center;
+  align-items: center;
   background-size: cover;
 }
 
-.player {
+#video_wrapper {
   max-width: 750px;
   position: relative;
-  font-size: 0;
   border: 5px solid rgba(0, 0, 0, 0.2);
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  font-size: 0;
   overflow: hidden;
 }
 
 /* video 可以自适应窗口 */
-.player_video {
+#video {
   width: 100%;
 }
 
-.player_controls {
-  display: flex;
+.player-controls {
   position: absolute;
-  flex-wrap: wrap;
-  bottom: 0;
   width: 100%;
-  transform: translateY(100%) translateY(-5px);
+  bottom: 0;
   background: rgba(0, 0, 0, 0.1);
+  color: #fff;
+  transform: translateY(100%) translateY(-5px);
   transition: all 0.3s;
+  display: flex;
+  flex-wrap: wrap;
 }
 
-.player:hover .player_controls {
+#video_wrapper:hover .player-controls {
   transform: translateY(0);
 }
 
 .progress {
+  position: relative;
   height: 5px;
   background: rgba(0, 0, 0, 0.5);
-  position: relative;
   display: flex;
   flex: 10;
-  flex-basis: 100%;  /* 用百分比来定义宽度 */
+  flex-basis: 100%;
   transition: height 0.3s;
-  cursor: ew-resize;  /* 此光标指示矩形框的边缘可被向左或向右移动 */
+  cursor: pointer;
 }
 
-.player:hover .progress {
+#video_wrapper:hover .progress {
   height: 10px;
 }
 
 .progress_fill {
-  width: 50%;
-  background: #496ebe;
-  flex: 0;
-  flex-basis: 50%;
+  width: 60%;
+  background: rgb(180, 146, 235);
+  flex-basis: 60%;
 }
 
 .player_button {
+  outline: none;
   background: none;
+  color: #fff;
   border: 0;
-  line-height: 1;
-  color: white;
   text-align: center;
-  outline: 0;
   cursor: pointer;
   flex: 1;
 }
 
 .time {
-  margin-top: 10px;
-  color: #fff;
-  font-size: 10px;
-  flex: 2;
+  font-size: 6px;
+  line-height: 10px;
+  flex: 1;
+  text-align: center;
 }
 
+/* 倍速 & 音量 */
+.playerRate,
 .volumn {
+  font-size: 16px;
   flex: 1;
-  margin-top: 10px;
-  position: relative;
+  text-align: center;
+  padding-top: 4px;
 }
 
-.player_rate {
-  flex: 1;
-  margin-top: 10px;
-}
-
-.volumn_input {
-  transform: rotate(-90deg);
+.rate_wrapper,
+.volumn_wrapper {
   position: absolute;
-  left: 100%;
-  top: -10px;
-  display: none;
-}
-
-/* 去除系统默认样式 */
-input[type=range] {
-  -webkit-appearance: none;
-  width: 100px;
-  border-radius: 3px;
-  position: absolute;
-  bottom: 75px;
-}
-
-/* 给滑动轨道track添加样式 */
-input[type=range]::-webkit-slider-runnable-track {
-  height: 4px;
-}
-
-input[type=range]:focus {
-  outline: none;
-}
-
-/* 给滑块thumb添加样式 */
-input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  height: 12px;
-  width: 12px;
+  cursor: pointer;
+  top: -90px;
+  width: 24px;
+  height: 100px;
   background: #fff;
-  margin-top: -4px;
+  border-radius: 4px 4px 0 0;
+  display: none;
+  z-index: 99;
+}
+
+.rate_wrapper {
+  left: 39%;
+}
+
+.volumn_wrapper {
+  left: 55%;
+}
+
+.volumn_icon,
+.player_icon {
+  cursor: pointer;
+}
+
+.volumn:hover .volumn_wrapper,
+.playerRate:hover .rate_wrapper {
+  display: block;
+}
+
+.rate_num,
+.volumn_num {
+  color: #99a2aa;
+  text-align: center;
+  font-size: 10px;
+  line-height: 20px;
+}
+
+.rate_range,
+.volumn_range {
+  outline: none;
+  margin: 0 auto;
+  position: absolute;
+  transform: rotate(-90deg) translateX(-45%) translateY(-34px);
+  width: 70px;
+}
+
+/* 横条样式 */
+input[type="range"] {
+  -webkit-appearance: none;  /* 清除系统默认样式 */
+  height: 5px;
+  background: #ddd;
+  border-radius: 5px;
+}
+
+/* 拖动块样式 */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 12px;  /* 拖动块高度 */
+  width: 12px;  /* 拖动块宽度 */
+  background: rgb(180, 146, 235);
   border-radius: 50%;
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
 }
